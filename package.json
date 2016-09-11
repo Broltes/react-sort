@@ -1,0 +1,53 @@
+{
+  "name": "react-sort",
+  "version": "0.1.0",
+  "description": "react sort",
+  "main": "./lib/react-sort.js",
+  "scripts": {
+    "dev": "webpack-dev-server --hot --config webpack.dev.config.js",
+    "demos": "webpack -p --optimize-dedupe --progress --config webpack.demos.config.js",
+    "clean:demos": "rm -rf ../github.io/sort",
+    "clean:lib": "rm -rf lib/",
+    "build": "babel src --out-dir lib",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Broltes/react-sort.git"
+  },
+  "keywords": [
+    "react",
+    "sort"
+  ],
+  "author": "Broltes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Broltes/react-sort/issues"
+  },
+  "homepage": "https://github.com/Broltes/react-sort#readme",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.4.1",
+    "babel-cli": "^6.14.0",
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.25.0",
+    "html-webpack-plugin": "^2.22.0",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "postcss-loader": "^0.13.0",
+    "react-hot-loader": "^3.0.0-beta.3",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.1"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1"
+  }
+}
