@@ -53,9 +53,9 @@ export default React.createClass({
             y: 0,
         };
     },
-    componentWillReceiveProps() {
+    componentWillReceiveProps(nextProps) {
         this.setState({
-            sortedIds: this.props.items.map((item, id) => id),
+            sortedIds: nextProps.items.map((item, id) => id),
         });
     },
 
@@ -132,9 +132,11 @@ export default React.createClass({
             }
         }
         else {
-            var movement = _calculatePointsDistance(point, _initialPoint);
             // cancel press
-            if(movement > this.props.pressMoveThreshold) clearTimeout(_pressId);
+            if(
+                !_initialPoint ||
+                _calculatePointsDistance(point, _initialPoint) > this.props.pressMoveThreshold
+            ) clearTimeout(_pressId);
         }
     },
     touchEnd() {
@@ -152,11 +154,12 @@ export default React.createClass({
     },
 
     render() {
-        const { className = '', items } = this.props;
-        const { sortedIds, draggingId, x, y } = this.state;
-        const { touchStart, touchMove, touchEnd } = this;
+        const {
+            props: { className = '', items, footer },
+            state: { sortedIds, draggingId, x, y },
+            touchStart, touchMove, touchEnd
+        } = this;
         let draggingStyle = {
-            opacity: 0.9,
             WebkitTransform: `translate3d(${x}px,${y}px,0)`
         };
 
@@ -175,6 +178,7 @@ export default React.createClass({
                         </div>
                     );
                 })}
+                { footer || null}
             </div>
         );
     }
