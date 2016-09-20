@@ -18,7 +18,7 @@ var App = React.createClass({
         return (
             <div>
                 <Sort array={data} onSort={this.sort} items={data.map((item) => {
-                    return <div>{item}</div>;
+                    return <div onClick={() => alert(item)}>{item}</div>;
                 })}/>
             </div>
         );
