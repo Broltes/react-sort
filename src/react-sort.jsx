@@ -1,11 +1,11 @@
 import React from 'react';
-import classNames from 'classnames';
 
 let _initialPoint,
     _touchedId,
     _pressId,
     _rects,
     _targetId;
+const pressOffset = -5;// 按压效果的偏移量
 
 function _touchToPoint(touch) {
     return { x: touch.clientX, y: touch.clientY };
@@ -19,7 +19,7 @@ function _calculatePointsDistance(p1, p2) {
 }
 // 判断点是否在矩形内
 function _isInRect(point, rect){
-    let d = 5;
+    let d = 5;// 判断领域内边距
     return point.y - rect.top > d &&
         rect.bottom - point.y > d &&
         point.x - rect.left > d &&
@@ -78,8 +78,8 @@ export default React.createClass({
                 // 排序开始
                 that.setState({
                     draggingId: _touchedId,
-                    x: -5,
-                    y: -5
+                    x: pressOffset,
+                    y: pressOffset
                 });
             }, this.props.pressDelay);
         }
@@ -126,8 +126,8 @@ export default React.createClass({
             } else {
                 // 移动
                 this.setState({
-                    x: point.x - _initialPoint.x,
-                    y: point.y - _initialPoint.y
+                    x: pressOffset + point.x - _initialPoint.x,
+                    y: pressOffset + point.y - _initialPoint.y
                 });
             }
         }
@@ -164,14 +164,14 @@ export default React.createClass({
         };
 
         return (
-            <div className={classNames('sort', className)} onTouchMove={touchMove} onTouchEnd={touchEnd}>
+            <div className={`sort ${className}`} onTouchMove={touchMove} onTouchEnd={touchEnd}>
                 { sortedIds.map((id) => {
                     let item = items[id];
                     let isDragging = id == draggingId;
 
                     return (
                         <div key={id} ref={id}
-                            className={classNames('sort-item', {'_dragging': isDragging})}
+                            className={'sort-item' + (isDragging ? ' _dragging' : '')}
                             style={isDragging ? draggingStyle : {}}
                             onTouchStart={(e) => touchStart(e, id)}>
                             {item}
